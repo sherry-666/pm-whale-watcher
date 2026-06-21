@@ -90,7 +90,7 @@ async function fetchActiveLowOddsTokens(): Promise<string[]> {
       try {
         pricesArray = typeof m.outcomePrices === 'string' ? JSON.parse(m.outcomePrices) : m.outcomePrices;
         clobTokenIdsArray = typeof m.clobTokenIds === 'string' ? JSON.parse(m.clobTokenIds) : m.clobTokenIds;
-      } catch (err) {
+      } catch {
         continue;
       }
 
