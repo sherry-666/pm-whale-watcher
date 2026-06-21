@@ -56,7 +56,11 @@ export const BetsTable: React.FC<BetsTableProps> = ({ bets }) => {
                 <td className="px-4 py-3 max-w-[280px] truncate text-ww-text-secondary font-medium">
                   {bet.marketSlug ? (
                     <a
-                      href={`https://polymarket.com/market/${bet.marketSlug}`}
+                      href={
+                        bet.marketNegRisk && bet.marketEventSlug
+                          ? `https://polymarket.com/event/${bet.marketEventSlug}`
+                          : `https://polymarket.com/market/${bet.marketSlug}`
+                      }
                       target="_blank"
                       rel="noopener noreferrer"
                       className="hover:text-ww-text-primary hover:underline transition-colors flex items-center gap-1 inline-flex max-w-full"

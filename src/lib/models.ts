@@ -12,6 +12,8 @@ const MarketSchema = new Schema({
   _id: { type: String, required: true }, // Market Condition ID (lowercase)
   title: { type: String, required: true },
   slug: { type: String },
+  eventSlug: { type: String },
+  negRisk: { type: Boolean, default: false },
   currentOddsYes: { type: Number },
   currentOddsNo: { type: Number },
   status: { type: String, default: 'active' },

@@ -8,6 +8,8 @@ interface TargetMarketCardProps {
   side: BetSide;
   oddsAtFlag: number;
   marketSlug?: string | null;
+  marketEventSlug?: string | null;
+  marketNegRisk?: boolean;
 }
 
 export const TargetMarketCard: React.FC<TargetMarketCardProps> = ({
@@ -15,6 +17,8 @@ export const TargetMarketCard: React.FC<TargetMarketCardProps> = ({
   side,
   oddsAtFlag,
   marketSlug,
+  marketEventSlug,
+  marketNegRisk,
 }) => {
   return (
     <div className="bg-ww-bg-surface border border-ww-border p-6 rounded flex flex-col justify-between font-mono h-full">
@@ -50,7 +54,11 @@ export const TargetMarketCard: React.FC<TargetMarketCardProps> = ({
 
       {marketSlug && (
         <a
-          href={`https://polymarket.com/market/${marketSlug}`}
+          href={
+            marketNegRisk && marketEventSlug
+              ? `https://polymarket.com/event/${marketEventSlug}`
+              : `https://polymarket.com/market/${marketSlug}`
+          }
           target="_blank"
           rel="noopener noreferrer"
           className="mt-6 w-full py-2.5 px-4 bg-ww-accent-green/5 hover:bg-ww-accent-green/10 text-ww-accent-green border border-ww-accent-green/30 hover:border-ww-accent-green/60 rounded text-[10px] font-bold tracking-wider uppercase transition-all text-center flex items-center justify-center gap-1.5"

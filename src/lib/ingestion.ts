@@ -107,6 +107,8 @@ async function fetchActiveLowOddsTokens(): Promise<string[]> {
           _id: conditionId,
           title: m.question,
           slug: m.slug || '',
+          eventSlug: m.events?.[0]?.slug || '',
+          negRisk: !!m.negRisk,
           currentOddsYes: prices[0] || null,
           currentOddsNo: prices[1] || null,
           status: 'active',
