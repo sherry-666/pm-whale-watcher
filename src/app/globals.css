@@ -2,26 +2,57 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    @apply bg-ww-bg-app text-ww-text-primary font-mono antialiased selection:bg-ww-accent-green/30 selection:text-ww-accent-green;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+/* Custom Sleek Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+::-webkit-scrollbar-track {
+  background: #06080c;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1a2230;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00e5a0;
+}
+
+/* Custom utilities for animations and layout glows */
+.glow-green {
+  box-shadow: 0 0 12px rgba(0, 229, 160, 0.15);
+}
+
+.glow-red {
+  box-shadow: 0 0 12px rgba(255, 77, 77, 0.15);
+}
+
+.glow-shark {
+  box-shadow: 0 0 12px rgba(245, 185, 66, 0.15);
+}
+
+.glow-whale {
+  box-shadow: 0 0 12px rgba(255, 143, 63, 0.15);
+}
+
+.glow-mega {
+  box-shadow: 0 0 15px rgba(255, 77, 77, 0.25);
+}
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
