@@ -35,6 +35,7 @@ export async function GET() {
       marketTitle: b.marketId ? b.marketId.title : 'Unknown Market',
       marketSlug: b.marketId ? b.marketId.slug : '',
       marketEventSlug: b.marketId ? b.marketId.eventSlug : '',
+      marketCategory: b.marketId ? b.marketId.category : 'General',
       marketNegRisk: b.marketId ? !!b.marketId.negRisk : false,
       lifetimeTrades: b.walletAddress ? b.walletAddress.lifetimeTrades : 1,
     }));
@@ -118,6 +119,7 @@ export async function GET() {
         marketTitle: clusterDoc.marketId ? clusterDoc.marketId.title : 'Unknown Market',
         marketSlug: clusterDoc.marketId ? clusterDoc.marketId.slug : '',
         marketEventSlug: clusterDoc.marketId ? clusterDoc.marketId.eventSlug : '',
+        marketCategory: clusterDoc.marketId ? clusterDoc.marketId.category : 'General',
         marketNegRisk: clusterDoc.marketId ? !!clusterDoc.marketId.negRisk : false,
       };
     }

@@ -129,6 +129,7 @@ export async function GET(req: NextRequest) {
             marketTitle: randomMarket.title,
             marketSlug: randomMarket.slug || '',
             marketEventSlug: randomMarket.eventSlug || '',
+            marketCategory: randomMarket.category || 'General',
             marketNegRisk: !!randomMarket.negRisk,
             lifetimeTrades: 1,
           };

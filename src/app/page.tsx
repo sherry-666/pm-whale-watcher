@@ -9,6 +9,7 @@ import { FeedTable } from '../components/feed/FeedTable';
 
 export default function FeedPage() {
   const [filter, setFilter] = useState<'all' | 'SHARK' | 'WHALE' | 'MEGA_WHALE'>('all');
+  const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [streamPaused, setStreamPaused] = useState(false);
 
   // Fetch feed data via SWR
@@ -17,11 +18,20 @@ export default function FeedPage() {
   // Establish Server-Sent Events stream connection
   useEventStream(streamPaused);
 
-  // Apply tier filters on the client-side
+  // Extract unique active categories from the feed data
+  const availableCategories = feed?.bets
+    ? Array.from(
+        new Set(feed.bets.map((b) => b.marketCategory).filter(Boolean) as string[])
+      ).sort()
+    : [];
+
+  // Apply tier and category filters on the client-side
   const filteredBets = feed?.bets
     ? feed.bets.filter((bet) => {
-        if (filter === 'all') return true;
-        return bet.tier === filter;
+        const matchesTier = filter === 'all' || bet.tier === filter;
+        const matchesCategory =
+          categoryFilter === 'all' || bet.marketCategory === categoryFilter;
+        return matchesTier && matchesCategory;
       })
     : [];
 
@@ -34,6 +44,9 @@ export default function FeedPage() {
       <FilterBar
         currentFilter={filter}
         setFilter={setFilter}
+        categoryFilter={categoryFilter}
+        setCategoryFilter={setCategoryFilter}
+        availableCategories={availableCategories}
         streamPaused={streamPaused}
         setStreamPaused={setStreamPaused}
         tierCounts={feed?.tierCounts}

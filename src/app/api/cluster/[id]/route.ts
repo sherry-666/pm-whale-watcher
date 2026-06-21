@@ -42,6 +42,7 @@ export async function GET(
         title: cluster.marketId ? cluster.marketId.title : 'Unknown Market',
         slug: cluster.marketId ? cluster.marketId.slug : null,
         eventSlug: cluster.marketId ? cluster.marketId.eventSlug : null,
+        category: cluster.marketId ? cluster.marketId.category : 'General',
         negRisk: cluster.marketId ? !!cluster.marketId.negRisk : false,
       },
       side: cluster.side,

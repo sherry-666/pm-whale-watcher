@@ -10,6 +10,7 @@ interface TargetMarketCardProps {
   marketSlug?: string | null;
   marketEventSlug?: string | null;
   marketNegRisk?: boolean;
+  category?: string | null;
 }
 
 export const TargetMarketCard: React.FC<TargetMarketCardProps> = ({
@@ -19,13 +20,21 @@ export const TargetMarketCard: React.FC<TargetMarketCardProps> = ({
   marketSlug,
   marketEventSlug,
   marketNegRisk,
+  category,
 }) => {
   return (
     <div className="bg-ww-bg-surface border border-ww-border p-6 rounded flex flex-col justify-between font-mono h-full">
       <div>
-        <h3 className="text-[10px] font-bold text-ww-text-ghost uppercase tracking-widest mb-3">
-          TARGET SIGNAL OUTCOME
-        </h3>
+        <div className="flex items-center justify-between gap-2 mb-3">
+          <h3 className="text-[10px] font-bold text-ww-text-ghost uppercase tracking-widest">
+            TARGET SIGNAL OUTCOME
+          </h3>
+          {category && (
+            <span className="px-1.5 py-0.5 border border-ww-border text-[9px] font-bold text-ww-text-ghost uppercase tracking-wider rounded bg-ww-bg-input">
+              {category}
+            </span>
+          )}
+        </div>
         <h2 className="text-sm md:text-base font-bold text-ww-text-primary leading-snug">
           {title}
         </h2>

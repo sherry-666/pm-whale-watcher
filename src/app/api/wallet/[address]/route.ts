@@ -58,6 +58,7 @@ export async function GET(
       marketTitle: b.marketId ? b.marketId.title : 'Unknown Market',
       marketSlug: b.marketId ? b.marketId.slug : '',
       marketEventSlug: b.marketId ? b.marketId.eventSlug : '',
+      marketCategory: b.marketId ? b.marketId.category : 'General',
       marketNegRisk: b.marketId ? !!b.marketId.negRisk : false,
       lifetimeTrades: wallet.lifetimeTrades,
     }));

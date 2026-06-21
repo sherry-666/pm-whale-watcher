@@ -14,6 +14,7 @@ const MarketSchema = new Schema({
   slug: { type: String },
   eventSlug: { type: String },
   negRisk: { type: Boolean, default: false },
+  category: { type: String, default: 'General' },
   currentOddsYes: { type: Number },
   currentOddsNo: { type: Number },
   status: { type: String, default: 'active' },

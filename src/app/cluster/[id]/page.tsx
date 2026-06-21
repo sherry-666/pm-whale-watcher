@@ -70,6 +70,7 @@ export default function ClusterPage({ params }: ClusterPageProps) {
             marketSlug={cluster.market.slug}
             marketEventSlug={cluster.market.eventSlug}
             marketNegRisk={cluster.market.negRisk}
+            category={cluster.market.category}
           />
         </div>
         <div className="md:col-span-2">

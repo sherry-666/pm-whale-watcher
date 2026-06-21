@@ -100,6 +100,8 @@ async function fetchActiveLowOddsTokens(): Promise<string[]> {
 
       const prices = pricesArray.map((p: any) => parseFloat(p));
 
+      const category = classifyCategory(m.question || '', m.slug || '', m.feeType || '');
+
       // Save/update market details in MongoDB
       await Market.findByIdAndUpdate(
         conditionId,
@@ -109,6 +111,7 @@ async function fetchActiveLowOddsTokens(): Promise<string[]> {
           slug: m.slug || '',
           eventSlug: m.events?.[0]?.slug || '',
           negRisk: !!m.negRisk,
+          category,
           currentOddsYes: prices[0] || null,
           currentOddsNo: prices[1] || null,
           status: 'active',
@@ -388,6 +391,113 @@ async function runClusterDetection(newBet: any) {
   } catch (err) {
     console.error('Failed to run cluster detection:', err);
   }
+}
+
+/**
+ * Classifies a Polymarket prediction into standard categories
+ */
+function classifyCategory(title: string, slug: string, feeType: string): string {
+  const t = title.toLowerCase();
+  const s = slug.toLowerCase();
+  const f = (feeType || '').toLowerCase();
+
+  // 1. FeeType direct classification
+  if (f.includes('politics')) return 'Politics';
+  if (f.includes('sports')) return 'Sports';
+  if (f.includes('culture')) return 'Pop Culture';
+
+  // 2. Keyword matching for Politics / Geopolitics
+  if (
+    t.includes('election') || s.includes('election') ||
+    t.includes('president') || s.includes('president') ||
+    t.includes('nomination') || s.includes('nomination') ||
+    t.includes('trump') || s.includes('trump') ||
+    t.includes('biden') || s.includes('biden') ||
+    t.includes('harris') || s.includes('harris') ||
+    t.includes('taiwan') || s.includes('taiwan') ||
+    t.includes('invad') || s.includes('invad') ||
+    t.includes('geopolitics') || s.includes('geopolitics') ||
+    t.includes('russia') || s.includes('russia') ||
+    t.includes('ukraine') || s.includes('ukraine') ||
+    t.includes('china') || s.includes('china')
+  ) {
+    return 'Politics';
+  }
+
+  // 3. Keyword matching for Crypto
+  if (
+    t.includes('bitcoin') || s.includes('bitcoin') ||
+    t.includes('btc') || s.includes('btc') ||
+    t.includes('ethereum') || s.includes('ethereum') ||
+    t.includes('eth') || s.includes('eth') ||
+    t.includes('solana') || s.includes('solana') ||
+    t.includes('crypto') || s.includes('crypto') ||
+    t.includes('airdrop') || s.includes('airdrop') ||
+    t.includes('token') || s.includes('token') ||
+    t.includes('vitalik') || s.includes('vitalik') ||
+    t.includes('megaeth') || s.includes('megaeth') ||
+    t.includes('coin') || s.includes('coin')
+  ) {
+    return 'Crypto';
+  }
+
+  // 4. Keyword matching for Science & Tech
+  if (
+    t.includes('openai') || s.includes('openai') ||
+    t.includes('chatgpt') || s.includes('chatgpt') ||
+    t.includes('gpt') || s.includes('gpt') ||
+    t.includes('ai ') || s.includes('ai-') || s.includes('-ai') ||
+    t.includes('artificial intelligence') ||
+    t.includes('starship') || s.includes('starship') ||
+    t.includes('spacex') || s.includes('spacex') ||
+    t.includes('nuclear') || s.includes('nuclear') ||
+    t.includes('tech') || s.includes('tech')
+  ) {
+    return 'Science & Tech';
+  }
+
+  // 5. Keyword matching for Business & Finance
+  if (
+    t.includes('fed ') || t.includes('fed-') || s.includes('fed') ||
+    t.includes('rate cut') || s.includes('rate-cut') ||
+    t.includes('inflation') || s.includes('inflation') ||
+    t.includes('cpi') || s.includes('cpi') ||
+    t.includes('interest rate') || s.includes('interest-rate') ||
+    t.includes('recession') || s.includes('recession') ||
+    t.includes('stock') || s.includes('stock') ||
+    t.includes('gdp') || s.includes('gdp')
+  ) {
+    return 'Business & Finance';
+  }
+
+  // 6. Keyword matching for Sports
+  if (
+    t.includes('world cup') || s.includes('world-cup') ||
+    t.includes('fifa') || s.includes('fifa') ||
+    t.includes('nba') || s.includes('nba') ||
+    t.includes('nfl') || s.includes('nfl') ||
+    t.includes('championship') || s.includes('championship') ||
+    t.includes('matchup') || s.includes('matchup')
+  ) {
+    return 'Sports';
+  }
+
+  // 7. Keyword matching for Pop Culture
+  if (
+    t.includes('gta') || s.includes('gta') ||
+    t.includes('rihanna') || s.includes('rihanna') ||
+    t.includes('album') || s.includes('album') ||
+    t.includes('carti') || s.includes('carti') ||
+    t.includes('music') || s.includes('music') ||
+    t.includes('celebrity') || s.includes('celebrity') ||
+    t.includes('oscar') || s.includes('oscar') ||
+    t.includes('weinstein') || s.includes('weinstein')
+  ) {
+    return 'Pop Culture';
+  }
+
+  // Default fallback
+  return 'General';
 }
 
 main().catch((err) => {

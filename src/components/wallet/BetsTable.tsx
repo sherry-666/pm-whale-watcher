@@ -54,24 +54,31 @@ export const BetsTable: React.FC<BetsTableProps> = ({ bets }) => {
 
                 {/* 2. Target Market */}
                 <td className="px-4 py-3 max-w-[280px] truncate text-ww-text-secondary font-medium">
-                  {bet.marketSlug ? (
-                    <a
-                      href={
-                        bet.marketNegRisk && bet.marketEventSlug
-                          ? `https://polymarket.com/event/${bet.marketEventSlug}`
-                          : `https://polymarket.com/market/${bet.marketSlug}`
-                      }
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:text-ww-text-primary hover:underline transition-colors flex items-center gap-1 inline-flex max-w-full"
-                      title={bet.marketTitle}
-                    >
+                  <div className="flex flex-col min-w-0">
+                    {bet.marketSlug ? (
+                      <a
+                        href={
+                          bet.marketNegRisk && bet.marketEventSlug
+                            ? `https://polymarket.com/event/${bet.marketEventSlug}`
+                            : `https://polymarket.com/market/${bet.marketSlug}`
+                        }
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-ww-text-primary hover:underline transition-colors flex items-center gap-1 inline-flex max-w-full"
+                        title={bet.marketTitle}
+                      >
+                        <span className="truncate">{bet.marketTitle}</span>
+                        <span className="text-[10px] text-ww-text-ghost font-bold">↗</span>
+                      </a>
+                    ) : (
                       <span className="truncate">{bet.marketTitle}</span>
-                      <span className="text-[10px] text-ww-text-ghost font-bold">↗</span>
-                    </a>
-                  ) : (
-                    bet.marketTitle
-                  )}
+                    )}
+                    {bet.marketCategory && (
+                      <span className="text-[9px] text-ww-text-ghost uppercase font-bold tracking-wider mt-0.5">
+                        {bet.marketCategory}
+                      </span>
+                    )}
+                  </div>
                 </td>
 
                 {/* 3. Side */}

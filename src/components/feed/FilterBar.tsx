@@ -6,6 +6,9 @@ import { Play, Pause } from 'lucide-react';
 interface FilterBarProps {
   currentFilter: 'all' | 'SHARK' | 'WHALE' | 'MEGA_WHALE';
   setFilter: (filter: 'all' | 'SHARK' | 'WHALE' | 'MEGA_WHALE') => void;
+  categoryFilter: string;
+  setCategoryFilter: (category: string) => void;
+  availableCategories: string[];
   streamPaused: boolean;
   setStreamPaused: (paused: boolean) => void;
   tierCounts: {
@@ -19,6 +22,9 @@ interface FilterBarProps {
 export const FilterBar: React.FC<FilterBarProps> = ({
   currentFilter,
   setFilter,
+  categoryFilter,
+  setCategoryFilter,
+  availableCategories,
   streamPaused,
   setStreamPaused,
   tierCounts,
@@ -34,32 +40,48 @@ export const FilterBar: React.FC<FilterBarProps> = ({
 
   return (
     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4 select-none">
-      {/* Left: Filter Chips */}
-      <div className="flex flex-wrap gap-2">
-        {filterOptions.map((opt) => {
-          const isActive = currentFilter === opt.value;
+      {/* Left: Filter Chips & Category Dropdown */}
+      <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap gap-2">
+          {filterOptions.map((opt) => {
+            const isActive = currentFilter === opt.value;
 
-          return (
-            <button
-              key={opt.value}
-              onClick={() => setFilter(opt.value)}
-              className={`flex items-center gap-2 border px-2.5 py-1 rounded text-[11px] font-mono font-bold transition-all ${
-                isActive
-                  ? 'bg-ww-accent-green/5 border-ww-accent-green text-ww-accent-green'
-                  : `bg-transparent ${opt.colorClass}`
-              }`}
-            >
-              <span>{opt.label}</span>
-              <span
-                className={`text-[10px] px-1 py-0.2 rounded-sm ${
-                  isActive ? 'bg-ww-accent-green text-ww-bg-app' : 'bg-ww-bg-input text-ww-text-dim border border-ww-border'
+            return (
+              <button
+                key={opt.value}
+                onClick={() => setFilter(opt.value)}
+                className={`flex items-center gap-2 border px-2.5 py-1 rounded text-[11px] font-mono font-bold transition-all ${
+                  isActive
+                    ? 'bg-ww-accent-green/5 border-ww-accent-green text-ww-accent-green'
+                    : `bg-transparent ${opt.colorClass}`
                 }`}
               >
-                {opt.count}
-              </span>
-            </button>
-          );
-        })}
+                <span>{opt.label}</span>
+                <span
+                  className={`text-[10px] px-1 py-0.2 rounded-sm ${
+                    isActive ? 'bg-ww-accent-green text-ww-bg-app' : 'bg-ww-bg-input text-ww-text-dim border border-ww-border'
+                  }`}
+                >
+                  {opt.count}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Category Filter Select */}
+        <select
+          value={categoryFilter}
+          onChange={(e) => setCategoryFilter(e.target.value)}
+          className="bg-ww-bg-input border border-ww-border text-ww-text-muted hover:border-ww-text-muted hover:text-ww-text-primary px-3 py-1.5 rounded text-[11px] font-mono font-bold focus:outline-none cursor-pointer transition-colors"
+        >
+          <option value="all">ALL CATEGORIES</option>
+          {availableCategories.map((cat) => (
+            <option key={cat} value={cat}>
+              {cat.toUpperCase()}
+            </option>
+          ))}
+        </select>
       </div>
 
       {/* Right: Live Stream Toggle */}

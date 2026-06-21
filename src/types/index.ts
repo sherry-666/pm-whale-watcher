@@ -14,6 +14,7 @@ export interface Market {
   id: string;
   title: string;
   slug: string | null;
+  category?: string;
   currentOddsYes: number | null;
   currentOddsNo: number | null;
   status: string;
@@ -40,6 +41,7 @@ export interface FlaggedBet {
   marketTitle?: string; // Hydrated field
   marketSlug?: string; // Hydrated field
   marketEventSlug?: string; // Hydrated field
+  marketCategory?: string; // Hydrated field
   marketNegRisk?: boolean; // Hydrated field
   lifetimeTrades?: number; // Hydrated field
   isNew?: boolean; // Runtime animation flag
@@ -58,6 +60,7 @@ export interface Cluster {
   marketTitle?: string; // Hydrated field
   marketSlug?: string; // Hydrated field
   marketEventSlug?: string; // Hydrated field
+  marketCategory?: string; // Hydrated field
   marketNegRisk?: boolean; // Hydrated field
 }
 
@@ -117,7 +120,7 @@ export interface ClusterDetailMember {
 
 export interface ClusterResponse {
   id: string;
-  market: { id: string; title: string; slug?: string | null; eventSlug?: string | null; negRisk?: boolean };
+  market: { id: string; title: string; slug?: string | null; eventSlug?: string | null; negRisk?: boolean; category?: string | null };
   side: BetSide;
   oddsAtFlag: number;
   aggregateSize: number;

@@ -8,16 +8,16 @@ import * as dotenv from 'dotenv';
 dotenv.config({ path: '.env.local' });
 
 const MARKETS_MOCK = [
-  { _id: 'm-1', title: 'Trump pardons crypto founder before Aug 1', slug: 'trump-pardons-crypto-founder', currentOddsYes: 0.12, currentOddsNo: 0.88, status: 'active' },
-  { _id: 'm-2', title: 'US Bitcoin strategic reserve established in 2026', slug: 'us-btc-reserve-2026', currentOddsYes: 0.18, currentOddsNo: 0.82, status: 'active' },
-  { _id: 'm-3', title: 'Fed cuts rates by 100bps or more in 2026', slug: 'fed-cuts-100bps-2026', currentOddsYes: 0.25, currentOddsNo: 0.75, status: 'active' },
-  { _id: 'm-4', title: 'Gary Gensler resigns as SEC Chair before July 1', slug: 'gensler-resigns-july-1', currentOddsYes: 0.28, currentOddsNo: 0.72, status: 'active' },
-  { _id: 'm-5', title: 'Solana ETF approved by SEC before Sept 1', slug: 'solana-etf-sept-1', currentOddsYes: 0.08, currentOddsNo: 0.92, status: 'active' },
-  { _id: 'm-6', title: 'Apple announces direct ChatGPT competitor at WWDC', slug: 'apple-chatgpt-wwdc', currentOddsYes: 0.22, currentOddsNo: 0.78, status: 'active' },
-  { _id: 'm-7', title: 'OpenAI announces GPT-5 in June 2026', slug: 'gpt5-june-2026', currentOddsYes: 0.15, currentOddsNo: 0.85, status: 'active' },
-  { _id: 'm-8', title: 'Eminent domain declared on Bitcoin mining farm in 2026', slug: 'bitcoin-mining-eminent-domain', currentOddsYes: 0.04, currentOddsNo: 0.96, status: 'active' },
-  { _id: 'm-9', title: 'Vitalik Buterin moves all ETH out of main wallet before Dec 31', slug: 'vitalik-moves-eth', currentOddsYes: 0.02, currentOddsNo: 0.98, status: 'active' },
-  { _id: 'm-10', title: 'US inflation rate drops below 2% in July 2026', slug: 'inflation-below-2pct-july', currentOddsYes: 0.29, currentOddsNo: 0.71, status: 'active' },
+  { _id: 'm-1', title: 'Trump pardons crypto founder before Aug 1', slug: 'trump-pardons-crypto-founder', category: 'Politics', currentOddsYes: 0.12, currentOddsNo: 0.88, status: 'active' },
+  { _id: 'm-2', title: 'US Bitcoin strategic reserve established in 2026', slug: 'us-btc-reserve-2026', category: 'Crypto', currentOddsYes: 0.18, currentOddsNo: 0.82, status: 'active' },
+  { _id: 'm-3', title: 'Fed cuts rates by 100bps or more in 2026', slug: 'fed-cuts-100bps-2026', category: 'Business & Finance', currentOddsYes: 0.25, currentOddsNo: 0.75, status: 'active' },
+  { _id: 'm-4', title: 'Gary Gensler resigns as SEC Chair before July 1', slug: 'gensler-resigns-july-1', category: 'Politics', currentOddsYes: 0.28, currentOddsNo: 0.72, status: 'active' },
+  { _id: 'm-5', title: 'Solana ETF approved by SEC before Sept 1', slug: 'solana-etf-sept-1', category: 'Crypto', currentOddsYes: 0.08, currentOddsNo: 0.92, status: 'active' },
+  { _id: 'm-6', title: 'Apple announces direct ChatGPT competitor at WWDC', slug: 'apple-chatgpt-wwdc', category: 'Science & Tech', currentOddsYes: 0.22, currentOddsNo: 0.78, status: 'active' },
+  { _id: 'm-7', title: 'OpenAI announces GPT-5 in June 2026', slug: 'gpt5-june-2026', category: 'Science & Tech', currentOddsYes: 0.15, currentOddsNo: 0.85, status: 'active' },
+  { _id: 'm-8', title: 'Eminent domain declared on Bitcoin mining farm in 2026', slug: 'bitcoin-mining-eminent-domain', category: 'Crypto', currentOddsYes: 0.04, currentOddsNo: 0.96, status: 'active' },
+  { _id: 'm-9', title: 'Vitalik Buterin moves all ETH out of main wallet before Dec 31', slug: 'vitalik-moves-eth', category: 'Crypto', currentOddsYes: 0.02, currentOddsNo: 0.98, status: 'active' },
+  { _id: 'm-10', title: 'US inflation rate drops below 2% in July 2026', slug: 'inflation-below-2pct-july', category: 'Business & Finance', currentOddsYes: 0.29, currentOddsNo: 0.71, status: 'active' },
 ];
 
 const WALLETS_MOCK = [
