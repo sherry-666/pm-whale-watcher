@@ -50,7 +50,7 @@ export const TargetMarketCard: React.FC<TargetMarketCardProps> = ({
 
       {marketSlug && (
         <a
-          href={`https://polymarket.com/event/${marketSlug}`}
+          href={`https://polymarket.com/market/${marketSlug}`}
           target="_blank"
           rel="noopener noreferrer"
           className="mt-6 w-full py-2.5 px-4 bg-ww-accent-green/5 hover:bg-ww-accent-green/10 text-ww-accent-green border border-ww-accent-green/30 hover:border-ww-accent-green/60 rounded text-[10px] font-bold tracking-wider uppercase transition-all text-center flex items-center justify-center gap-1.5"
