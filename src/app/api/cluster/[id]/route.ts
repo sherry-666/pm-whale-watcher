@@ -40,6 +40,7 @@ export async function GET(
       market: {
         id: cluster.marketId ? cluster.marketId._id : 'unknown',
         title: cluster.marketId ? cluster.marketId.title : 'Unknown Market',
+        slug: cluster.marketId ? cluster.marketId.slug : null,
       },
       side: cluster.side,
       oddsAtFlag: cluster.oddsAtFlag,

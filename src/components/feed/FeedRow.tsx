@@ -46,8 +46,21 @@ export const FeedRow: React.FC<FeedRowProps> = ({ bet }) => {
       </td>
 
       {/* 4. Target Market */}
-      <td className="px-4 py-3 max-w-[280px] truncate text-ww-text-secondary">
-        {bet.marketTitle || 'Unknown Market'}
+      <td className="px-4 py-3 max-w-[280px] truncate text-ww-text-secondary font-medium">
+        {bet.marketSlug ? (
+          <a
+            href={`https://polymarket.com/event/${bet.marketSlug}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-ww-text-primary hover:underline transition-colors flex items-center gap-1 inline-flex max-w-full"
+            title={bet.marketTitle || 'View on Polymarket'}
+          >
+            <span className="truncate">{bet.marketTitle || 'Unknown Market'}</span>
+            <span className="text-[10px] text-ww-text-ghost font-bold">↗</span>
+          </a>
+        ) : (
+          bet.marketTitle || 'Unknown Market'
+        )}
       </td>
 
       {/* 5. Outcome Side */}

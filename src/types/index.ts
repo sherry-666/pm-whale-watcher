@@ -38,6 +38,7 @@ export interface FlaggedBet {
   flaggedAt: string;
   createdAt: string;
   marketTitle?: string; // Hydrated field
+  marketSlug?: string; // Hydrated field
   lifetimeTrades?: number; // Hydrated field
   isNew?: boolean; // Runtime animation flag
 }
@@ -53,6 +54,7 @@ export interface Cluster {
   detectedAt: string;
   createdAt: string;
   marketTitle?: string; // Hydrated field
+  marketSlug?: string; // Hydrated field
 }
 
 export interface ClusterMember {
@@ -111,7 +113,7 @@ export interface ClusterDetailMember {
 
 export interface ClusterResponse {
   id: string;
-  market: { id: string; title: string };
+  market: { id: string; title: string; slug?: string | null };
   side: BetSide;
   oddsAtFlag: number;
   aggregateSize: number;

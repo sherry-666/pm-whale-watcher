@@ -106,6 +106,7 @@ export async function GET(req: NextRequest) {
             flaggedAt: flaggedBet.flaggedAt.toISOString(),
             createdAt: flaggedBet.createdAt.toISOString(),
             marketTitle: randomMarket.title,
+            marketSlug: randomMarket.slug || '',
             lifetimeTrades: 1,
           };
 

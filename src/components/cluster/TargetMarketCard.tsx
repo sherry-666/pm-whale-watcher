@@ -7,12 +7,14 @@ interface TargetMarketCardProps {
   title: string;
   side: BetSide;
   oddsAtFlag: number;
+  marketSlug?: string | null;
 }
 
 export const TargetMarketCard: React.FC<TargetMarketCardProps> = ({
   title,
   side,
   oddsAtFlag,
+  marketSlug,
 }) => {
   return (
     <div className="bg-ww-bg-surface border border-ww-border p-6 rounded flex flex-col justify-between font-mono h-full">
@@ -45,6 +47,17 @@ export const TargetMarketCard: React.FC<TargetMarketCardProps> = ({
       <div className="mt-4 text-[10px] text-ww-text-muted leading-relaxed">
         <strong>Risk analysis:</strong> Multiple freshly created proxy wallets entering the same low-probability market within a short window indicates a high probability of asymmetric information (insider trading) or coordinated syndicate manipulation.
       </div>
+
+      {marketSlug && (
+        <a
+          href={`https://polymarket.com/event/${marketSlug}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-6 w-full py-2.5 px-4 bg-ww-accent-green/5 hover:bg-ww-accent-green/10 text-ww-accent-green border border-ww-accent-green/30 hover:border-ww-accent-green/60 rounded text-[10px] font-bold tracking-wider uppercase transition-all text-center flex items-center justify-center gap-1.5"
+        >
+          View Market on Polymarket <span className="text-[10px]">↗</span>
+        </a>
+      )}
     </div>
   );
 };

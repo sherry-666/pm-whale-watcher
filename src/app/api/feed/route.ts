@@ -33,6 +33,7 @@ export async function GET() {
       flaggedAt: b.flaggedAt.toISOString(),
       createdAt: b.createdAt.toISOString(),
       marketTitle: b.marketId ? b.marketId.title : 'Unknown Market',
+      marketSlug: b.marketId ? b.marketId.slug : '',
       lifetimeTrades: b.walletAddress ? b.walletAddress.lifetimeTrades : 1,
     }));
 
@@ -113,6 +114,7 @@ export async function GET() {
         detectedAt: clusterDoc.detectedAt.toISOString(),
         createdAt: clusterDoc.createdAt.toISOString(),
         marketTitle: clusterDoc.marketId ? clusterDoc.marketId.title : 'Unknown Market',
+        marketSlug: clusterDoc.marketId ? clusterDoc.marketId.slug : '',
       };
     }
 

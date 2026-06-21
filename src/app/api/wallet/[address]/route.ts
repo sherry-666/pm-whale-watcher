@@ -56,6 +56,7 @@ export async function GET(
       flaggedAt: b.flaggedAt.toISOString(),
       createdAt: b.createdAt.toISOString(),
       marketTitle: b.marketId ? b.marketId.title : 'Unknown Market',
+      marketSlug: b.marketId ? b.marketId.slug : '',
       lifetimeTrades: wallet.lifetimeTrades,
     }));
 
