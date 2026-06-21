@@ -62,9 +62,30 @@ export async function GET(req: NextRequest) {
             sizeUsd = 100000 + Math.random() * 300000;
           }
 
-          const odds = parseFloat((0.05 + Math.random() * 0.22).toFixed(2));
+          // Determine the actual low-odds side and probability from the market
+          let side: 'YES' | 'NO' = 'YES';
+          let odds = parseFloat((0.05 + Math.random() * 0.22).toFixed(2));
+
+          const yesOdds = randomMarket.currentOddsYes;
+          const noOdds = randomMarket.currentOddsNo;
+
+          if (yesOdds !== null && yesOdds !== undefined && noOdds !== null && noOdds !== undefined) {
+            // Find which side is the low-odds outcome (between 2% and 30%)
+            if (yesOdds >= 0.02 && yesOdds <= 0.30) {
+              side = 'YES';
+              odds = parseFloat((yesOdds + (Math.random() * 0.04 - 0.02)).toFixed(3));
+            } else if (noOdds >= 0.02 && noOdds <= 0.30) {
+              side = 'NO';
+              odds = parseFloat((noOdds + (Math.random() * 0.04 - 0.02)).toFixed(3));
+            } else {
+              side = yesOdds < noOdds ? 'YES' : 'NO';
+              odds = Math.min(yesOdds, noOdds);
+            }
+          }
+
+          // Clamp odds to a realistic range [0.01, 0.35]
+          odds = Math.max(0.01, Math.min(0.35, odds));
           const score = computeAlertScore(tier, sizeUsd, odds, 1);
-          const side = Math.random() > 0.35 ? 'YES' : 'NO';
 
           // Generate simulated tx hash
           let txHash = '0x';

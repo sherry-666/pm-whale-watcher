@@ -290,9 +290,26 @@ interface SeedBet {
   for (let i = betsData.length; i < 22; i++) {
     const wAddr = randomAddresses[i % randomAddresses.length];
     const mId = `m-${(i % 9) + 2}`; // m-2 to m-10
+    const market = MARKETS_MOCK.find(m => m._id === mId);
+
+    let side: 'YES' | 'NO' = 'YES';
+    let odds = 0.12;
+
+    if (market) {
+      if (market.currentOddsYes !== null && market.currentOddsYes <= 0.30) {
+        side = 'YES';
+        odds = market.currentOddsYes + (Math.random() * 0.04 - 0.02);
+      } else if (market.currentOddsNo !== null && market.currentOddsNo <= 0.30) {
+        side = 'NO';
+        odds = market.currentOddsNo + (Math.random() * 0.04 - 0.02);
+      } else {
+        side = (market.currentOddsYes || 0.5) < (market.currentOddsNo || 0.5) ? 'YES' : 'NO';
+        odds = Math.min(market.currentOddsYes || 0.5, market.currentOddsNo || 0.5);
+      }
+    }
+
+    odds = Math.max(0.01, Math.min(0.35, odds));
     const size = Math.floor(25000 + Math.random() * 200000);
-    const odds = 0.05 + Math.random() * 0.23;
-    const side = Math.random() > 0.3 ? 'YES' : 'NO';
     const result = Math.random() > 0.5 ? 'OPEN' : (Math.random() > 0.5 ? 'WON' : 'LOST');
     const pnl = result === 'OPEN' ? undefined : (result === 'WON' ? Math.round((size / odds) - size) : -size);
 
@@ -301,7 +318,7 @@ interface SeedBet {
       marketId: mId,
       sizeUsd: size,
       odds: parseFloat(odds.toFixed(2)),
-      side: side as 'YES' | 'NO',
+      side,
       result: result as 'OPEN' | 'WON' | 'LOST',
       pnl,
       txHash: `0x${i}bc2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f2`.substring(0, 66),
